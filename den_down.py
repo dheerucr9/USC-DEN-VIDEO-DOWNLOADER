@@ -94,6 +94,5 @@ if linked_m3u8 != '':
 		os.system('rm -rf ./temp_%s/' % timestamp)
 		print("INFO: %s download completed." % file_name)
 	except:
-	    print('Error combining files')
-	    exit()
-	    
+			print('Error combining files')
+			exit()
