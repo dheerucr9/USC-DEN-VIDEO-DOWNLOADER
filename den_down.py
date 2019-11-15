@@ -85,14 +85,3 @@ if linked_m3u8 != '':
     except:
         print('Error combining files')
         exit()
-
-	try:
-		os.system('echo ./temp_%s/part_%s_{0..99}.ts | tr " " "\n" > tslist' % (timestamp, mp4_base_url))
-		os.system('echo ./temp_%s/part_%s_{99..%s}.ts | tr " " "\n" >> tslist' % (timestamp, mp4_base_url, str(925)))
-
-		os.system('while read line; do cat $line >> %s.ts; done < tslist' % mp4_base_url)
-		os.system('rm -rf ./temp_%s/' % timestamp)
-		print("INFO: %s download completed." % file_name)
-	except:
-			print('Error combining files')
-			exit()
