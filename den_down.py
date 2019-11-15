@@ -77,9 +77,9 @@ if linked_m3u8 != '':
         os.system('echo ./temp_%s/part_%s_{0..99}.ts | tr " " "\n" > tslist' % (timestamp, mp4_base_url))
         os.system('echo ./temp_%s/part_%s_{99..%s}.ts | tr " " "\n" >> tslist' % (timestamp, mp4_base_url, str(len(ts_files) - 1)))
 
-        os.system('while read line; do cat $line >> combined.ts; done < tslist')
-        os.system('cat ./temp_%s/part* > %s.ts' % (timestamp, file_name))
-        # os.system('rm -rf ./temp_%s/' % timestamp)
+        os.system('while read line; do cat $line >> %s.ts; done < tslist' % (file_name))
+#         os.system('cat ./temp_%s/part* > %s.ts' % (timestamp, file_name))
+        os.system('rm -rf ./temp_%s/' % timestamp)
 
         print("INFO: %s download completed." % file_name)
     except:
