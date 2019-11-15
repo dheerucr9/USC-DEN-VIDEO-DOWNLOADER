@@ -87,7 +87,6 @@ if linked_m3u8 != '':
         exit()
 
 	try:
-		mp4_base_url = "media_w187859636_ps0"
 		os.system('echo ./temp_%s/part_%s_{0..99}.ts | tr " " "\n" > tslist' % (timestamp, mp4_base_url))
 		os.system('echo ./temp_%s/part_%s_{99..%s}.ts | tr " " "\n" >> tslist' % (timestamp, mp4_base_url, str(925)))
 
