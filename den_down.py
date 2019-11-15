@@ -2,10 +2,10 @@ import os
 import time
 
 
-# 1. get download link from the website
-# 2. get until the m3u8 part and download the m3u8 file using curl
-# 3. navigate to the new m3u8 part append it to the base url and download the new m3u8 file.
-# 4. now the new downloaded files have all the ts files. download using them
+# # 1. get download link from the website
+# # 2. get until the m3u8 part and download the m3u8 file using curl
+# # 3. navigate to the new m3u8 part append it to the base url and download the new m3u8 file.
+# # 4. now the new downloaded files have all the ts files. download using them
 
 
 # if __name__ == '__main__':
@@ -74,12 +74,27 @@ if linked_m3u8 != '':
         exit()
 
     try:
+        os.system('echo ./temp_%s/part_%s_{0..99}.ts | tr " " "\n" > tslist' % (timestamp, mp4_base_url))
+        os.system('echo ./temp_%s/part_%s_{99..%s}.ts | tr " " "\n" >> tslist' % (timestamp, mp4_base_url, str(len(ts_files) - 1)))
+
+        os.system('while read line; do cat $line >> combined.ts; done < tslist')
         os.system('cat ./temp_%s/part* > %s.ts' % (timestamp, file_name))
-        os.system('rm -rf ./temp_%s/' % timestamp)
+        # os.system('rm -rf ./temp_%s/' % timestamp)
+
         print("INFO: %s download completed." % file_name)
     except:
         print('Error combining files')
         exit()
 
+	try:
+		mp4_base_url = "media_w187859636_ps0"
+		os.system('echo ./temp_%s/part_%s_{0..99}.ts | tr " " "\n" > tslist' % (timestamp, mp4_base_url))
+		os.system('echo ./temp_%s/part_%s_{99..%s}.ts | tr " " "\n" >> tslist' % (timestamp, mp4_base_url, str(925)))
 
-    
+		os.system('while read line; do cat $line >> %s.ts; done < tslist' % mp4_base_url)
+		os.system('rm -rf ./temp_%s/' % timestamp)
+		print("INFO: %s download completed." % file_name)
+	except:
+	    print('Error combining files')
+	    exit()
+	    
